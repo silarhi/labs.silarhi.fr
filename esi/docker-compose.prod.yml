@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+    app:
+        image: guystlr/php-apache:7.2
+        volumes:
+            - ./php:/app:ro
+        restart: always
+        networks:
+            - internal
+            - web
+
+    varnish:
+        build: ./varnish
+        restart: always
+        volumes:
+            - ./varnish/default.vcl:/etc/varnish/default.vcl:ro
+        environment:
+            - "VARNISHD_PARAMS=-t 0"
+        labels:
+            - "traefik.frontend.rule=Host:labs.sainthillier.fr;PathPrefixStrip:/esi;PathPrefix:/esi"
+        networks:
+            - internal
+            - web
+
+networks:
+    internal:
+        driver: bridge
+    web:
+        external: true

@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+    app:
+        image: guystlr/php-apache:7.2
+        ports:
+            - 8081:80
+        volumes:
+            - ./php:/app:ro
+
+    varnish:
+        build: varnish
+        ports:
+            - 8080:80
+        environment:
+            - "VARNISHD_PARAMS=-t 0"
+        volumes:
+            - ./varnish/default.vcl:/etc/varnish/default.vcl:ro
