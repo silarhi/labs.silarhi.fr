@@ -9,7 +9,7 @@ services:
             - ./php:/app:ro
 
     varnish:
-        build: varnish
+        build: ./varnish
         ports:
             - 8080:80
         environment:

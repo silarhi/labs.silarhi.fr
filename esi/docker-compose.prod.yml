@@ -3,6 +3,7 @@ version: '3'
 services:
     app:
         image: guystlr/php-apache:7.2
+        container_name: lab_esi_app
         volumes:
             - ./php:/app:ro
         restart: always
@@ -12,13 +13,14 @@ services:
 
     varnish:
         build: ./varnish
-        restart: always
+        container_name: labvarnish_app
         volumes:
             - ./varnish/default.vcl:/etc/varnish/default.vcl:ro
         environment:
             - "VARNISHD_PARAMS=-t 0"
         labels:
             - "traefik.frontend.rule=Host:labs.sainthillier.fr;PathPrefixStrip:/esi;PathPrefix:/esi"
+        restart: always
         networks:
             - internal
             - web
