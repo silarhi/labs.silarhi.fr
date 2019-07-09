@@ -11,7 +11,7 @@ services:
         volumes:
             - /app/var/logs
         labels:
-            - "traefik.frontend.rule=Host:labs.sainthillier.fr"
+            - "traefik.frontend.rule=Host:labs.silarhi.fr"
         restart: always
         networks:
             - web

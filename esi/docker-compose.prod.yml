@@ -19,7 +19,7 @@ services:
         environment:
             - "VARNISHD_PARAMS=-t 0"
         labels:
-            - "traefik.frontend.rule=Host:labs.sainthillier.fr;PathPrefixStrip:/esi;PathPrefix:/esi"
+            - "traefik.frontend.rule=Host:labs.silarhi.fr;PathPrefixStrip:/esi;PathPrefix:/esi"
         restart: always
         networks:
             - internal
