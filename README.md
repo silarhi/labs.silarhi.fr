@@ -2,7 +2,9 @@
 Contains some Traefik configuration used in production and hosts code described in blog posts.
 
 ## CI
-A POC of Symfony CI with Docker & CircleCI
+[![CircleCI](https://circleci.com/gh/silarhi/app-ci.svg?style=svg)](https://circleci.com/gh/silarhi/app-ci)
+
+A POC of CI with Symfony, Docker & CircleCI
 
 * Demo: https://labs.sainthillier.fr
 * Sources (App): https://github.com/silarhi/app-ci
@@ -10,14 +12,14 @@ A POC of Symfony CI with Docker & CircleCI
 * Docker image: https://hub.docker.com/r/silarhi/app-ci
 
 ## ESI
-A POC of ESI fragments with Varnish & Plain PHP on Docker
+A POC of ESI (Edge Side Includes) fragments with Varnish, PHP & Docker
 
 * Demo: https://labs.sainthillier.fr/esi
 * Sources: ./esi/
 * Blog post: https://blog.sainthillier.fr/reduisez-les-temps-de-reponse-de-votre-site-par-100/
 
 ## PHP
-A Docker image for PHP apps. Works with Apache and PHP 5.6,7.1,7.2 and with a Symfony variant.
+A Docker image for PHP apps. Works with Apache and PHP 5.6, 7.1, 7.2 and provide a Symfony variant.
 
 * Demo: https://labs.sainthillier.fr/php
 * Demo (404): https://labs.sainthillier.fr/php/notfound
