@@ -1,1 +1,2 @@
-esi/.env
+*/.env
+*/app.env
