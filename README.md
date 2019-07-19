@@ -8,14 +8,14 @@ A POC of CI with Symfony, Docker & CircleCI
 
 * Demo: https://labs.silarhi.fr
 * Sources (App): https://github.com/silarhi/app-ci
-* Sources (Deploy): ./ci/deploy.sh
+* Sources (Deploy): https://github.com/silarhi/labs.silarhi.fr/blob/master/ci/deploy.sh
 * Docker image: https://hub.docker.com/r/silarhi/app-ci
 
 ## ESI
 A POC of ESI (Edge Side Includes) fragments with Varnish, PHP & Docker
 
 * Demo: https://labs.silarhi.fr/esi
-* Sources: ./esi/
+* Sources: https://github.com/silarhi/labs.silarhi.fr/tree/master/esi
 * Blog post: https://blog.silarhi.fr/reduisez-les-temps-de-reponse-de-votre-site-par-100/
 
 ## PHP
