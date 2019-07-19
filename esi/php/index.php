@@ -15,10 +15,11 @@
     </style>
 	<title>Ma super page</title>
 </head>
-<body class="public cached p-2">
-	<esi:include src="/menu.php"/>
-  	<br />
-	<div class="container">
+<body class="p-2">
+	<div class="container public cached p-2">
+		<h1 class="text-center">Ma Super App</h1>
+		<esi:include src="/menu.php"/>
+  		<br />
 		<esi:include src="/time.php"/>
 		<div class="row">
 			<div class="col-md-8 col-lg-9">
@@ -32,6 +33,22 @@
 				<esi:include src="/sidebar.php"/>
 			</div>
 		</div>
+	</div>
+	<div class="container">
+		<h2 class="text-center m-3">Légende des bordures</h2>
+		<div class="row text-sm-center">
+			<div class="col-sm-3"><span class="d-inline-block public p-1">Public</span></div>
+			<div class="col-sm-3"><span class="d-inline-block public cached p-1">Public + cache</span></div>
+			<div class="col-sm-3"><span class="d-inline-block private p-1">Privé</span></div>
+			<div class="col-sm-3"><span class="d-inline-block private cached p-1">Privé + cache</span></div>
+		</div>
+
+		<h2 class="text-center m-4">C'est quoi ce site ?</h2>
+		<p>Un POC sur les fragments ESI avec Varnish et Docker :</p>
+		<ul>
+			<li>L'article du blog : <a target="_blank" href="https://blog.silarhi.fr/reduisez-les-temps-de-reponse-de-votre-site-par-100/">https://blog.silarhi.fr/reduisez-les-temps-de-reponse-de-votre-site-par-100/</a></li>
+			<li>Sources : <a target="_blank" href="https://github.com/silarhi/labs.silarhi.fr/tree/master/esi">https://github.com/silarhi/labs.silarhi.fr/tree/master/esi</a></li>
+		</ul>
 	</div>
 </body>
 </html>
