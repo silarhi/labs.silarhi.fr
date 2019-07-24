@@ -6,7 +6,7 @@
 	<div class="container">
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
-				<?php if (isset($_SESSION['logged'])): ?>
+				<?php if ($_SESSION['logged'] ?? false): ?>
 					<li class="navbar-text">
 						<span class="badge badge-success">Connecté</span>
 					</li>
