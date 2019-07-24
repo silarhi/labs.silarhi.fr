@@ -6,14 +6,14 @@
 	<div class="container">
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
-				<?php if (isset($_SESSION['logged'])) : ?>
+				<?php if (isset($_SESSION['logged'])): ?>
 					<li class="navbar-text">
 						<span class="badge badge-success">Connecté</span>
 					</li>
 					<li class="nav-item">
 					    <a class="nav-link" href="logout.php">Déconnexion</a>
 					</li>
-				<?php else : ?>
+				<?php else: ?>
 					<li class="navbar-text">
 			    		<span class="badge badge-danger">Anonyme</span>
 					</li>
