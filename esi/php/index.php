@@ -46,7 +46,7 @@
 		<h2 class="text-center m-4">C'est quoi ce site ?</h2>
 		<p>Un POC sur les fragments ESI avec Varnish et Docker :</p>
 		<ul>
-			<li>L'article du blog : <a target="_blank" href="https://blog.silarhi.fr/reduisez-les-temps-de-reponse-de-votre-site-par-100/">https://blog.silarhi.fr/reduisez-les-temps-de-reponse-de-votre-site-par-100/</a></li>
+			<li>L'article du blog : <a target="_blank" href="https://blog.silarhi.fr/varnish-fragment-esi-docker/">https://blog.silarhi.fr/varnish-fragment-esi-docker/</a></li>
 			<li>Sources : <a target="_blank" href="https://github.com/silarhi/labs.silarhi.fr/tree/master/esi">https://github.com/silarhi/labs.silarhi.fr/tree/master/esi</a></li>
 		</ul>
 	</div>
