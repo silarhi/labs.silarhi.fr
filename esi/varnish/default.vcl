@@ -1,5 +1,5 @@
 # /etc/varnish/default.vcl
-vcl 4.0;
+vcl 4.1;
 
 import std;
 import directors;
@@ -14,6 +14,10 @@ sub vcl_recv {
     # Pas de mise en cache pour les méthodes type POST / DELETE
     if (req.method != "GET" && req.method != "HEAD") {
         return (pass);
+    }
+
+    if (req.restarts > 0) {
+        set req.hash_always_miss = true;
     }
 
     # On supprime les cookies sur les pages publiques (cf vcl_hash)
@@ -58,7 +62,7 @@ sub vcl_hit {
         return (deliver);
     }
     
-    return (miss);
+    return (restart);
 }
 
 # Appelé au retour de la réponse par le backend

@@ -12,12 +12,11 @@ services:
             - web
 
     varnish:
-        build: ./varnish
+        image: varnish:6.3
+        command: ["varnishd", "-F", "-f", "/etc/varnish/default.vcl", "-t" , "0"]
         container_name: labvarnish_app
         volumes:
             - ./varnish/default.vcl:/etc/varnish/default.vcl:ro
-        environment:
-            - "VARNISHD_PARAMS=-t 0"
         labels:
             - "traefik.frontend.rule=Host:labs.silarhi.fr;PathPrefixStrip:/esi;PathPrefix:/esi"
         restart: always

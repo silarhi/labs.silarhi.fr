@@ -9,10 +9,9 @@ services:
             - ./php:/app:ro
 
     varnish:
-        build: ./varnish
+        image: varnish:6.3
+        command: ["varnishd", "-F", "-f", "/etc/varnish/default.vcl", "-t" , "0"]
         ports:
             - 8080:80
-        environment:
-            - "VARNISHD_PARAMS=-t 0"
         volumes:
             - ./varnish/default.vcl:/etc/varnish/default.vcl:ro
