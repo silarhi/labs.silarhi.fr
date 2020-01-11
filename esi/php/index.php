@@ -13,11 +13,11 @@
     	.private { border: 2px dashed red; }
     	.cached { border-style: solid; }
     </style>
-	<title>Ma super page</title>
+	<title>Varnish & ESI Demo</title>
 </head>
 <body class="p-2">
 	<div class="container public cached p-2">
-		<h1 class="text-center">Ma Super App</h1>
+		<h1 class="text-center">Varnish & ESI Demo</h1>
 		<esi:include src="/menu.php"/>
   		<br />
 		<esi:include src="/time.php"/>
