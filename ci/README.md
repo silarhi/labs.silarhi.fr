@@ -7,3 +7,4 @@ A POC of CI with Symfony, Docker & CircleCI
 * Sources (App): https://github.com/silarhi/app-ci
 * Sources (Deploy): https://github.com/silarhi/labs.silarhi.fr/blob/master/ci/deploy.sh
 * Docker image: https://hub.docker.com/r/silarhi/app-ci
+* Blog post: https://blog.silarhi.fr/deploiement-continu-symfony-docker-circleci/
