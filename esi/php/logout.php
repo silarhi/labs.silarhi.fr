@@ -7,4 +7,4 @@ if ( isset( $_COOKIE[session_name()] ) ) {
 session_start();
 session_destroy();
 
-header('Location: /', true, 301);
+header('Location: ./', true, 301);
