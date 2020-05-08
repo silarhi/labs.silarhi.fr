@@ -18,7 +18,11 @@ services:
         volumes:
             - ./varnish/default.vcl:/etc/varnish/default.vcl:ro
         labels:
-            - "traefik.frontend.rule=Host:labs.silarhi.fr;PathPrefixStrip:/esi;PathPrefix:/esi"
+            - "traefik.enable=true"
+            - "traefik.http.routers.labs-esi.rule=Host(`labs.silarhi.fr`) && PathPrefix(`/esi`)"
+            - "traefik.http.routers.labs-esi.entrypoints=websecure"
+            - "traefik.http.routers.labs-esi.middlewares=labs-esi"
+            - "traefik.http.middlewares.labs-esi.stripprefix.prefixes=/esi"
         restart: always
         networks:
             - internal

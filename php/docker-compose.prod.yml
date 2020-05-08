@@ -5,7 +5,11 @@ services:
         image: silarhi/php-apache:7.4
         container_name: lab_php_app
         labels:
-            - "traefik.frontend.rule=Host:labs.silarhi.fr;PathPrefixStrip:/php,/_errors;PathPrefix:/php"
+            - "traefik.enable=true"
+            - "traefik.http.routers.labs-php.rule=Host(`labs.silarhi.fr`) && PathPrefix(`/php`)"
+            - "traefik.http.routers.labs-php.entrypoints=websecure"
+            - "traefik.http.routers.labs-php.middlewares=labs-php"
+            - "traefik.http.middlewares.labs-php.stripprefix.prefixes=/php"
         restart: always
         networks:
             - web

@@ -11,7 +11,9 @@ services:
         volumes:
             - /app/var/logs
         labels:
-            - "traefik.frontend.rule=Host:labs.silarhi.fr"
+            - "traefik.enable=true"
+            - "traefik.http.routers.labs-ci.rule=Host(`labs.silarhi.fr`)"
+            - "traefik.http.routers.labs-ci.entrypoints=websecure"
         restart: always
         networks:
             - web
