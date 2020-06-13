@@ -17,7 +17,7 @@ A POC of ESI (Edge Side Includes) fragments with Varnish, PHP & Docker
 
 * Demo: https://labs.silarhi.fr/esi/
 * Sources: https://github.com/silarhi/labs.silarhi.fr/tree/master/esi
-* Blog post: https://blog.silarhi.fr/reduisez-les-temps-de-reponse-de-votre-site-par-100/
+* Blog post: https://blog.silarhi.fr/varnish-fragment-esi-docker/
 
 ## PHP
 A Docker image for PHP apps based on Debian. Works with Apache and PHP 5.6, 7.1, 7.2, 7.3, 7.4 and provide a Symfony variant.
