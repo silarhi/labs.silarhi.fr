@@ -8,6 +8,7 @@ services:
             - "traefik.enable=true"
             - "traefik.http.routers.labs-php.rule=Host(`labs.silarhi.fr`) && PathPrefix(`/php`)"
             - "traefik.http.routers.labs-php.entrypoints=websecure"
+            - "traefik.http.routers.labs-php.tls.certResolver=le"
             - "traefik.http.routers.labs-php.middlewares=labs-php"
             - "traefik.http.middlewares.labs-php.stripprefix.prefixes=/php"
         restart: always

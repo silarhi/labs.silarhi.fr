@@ -9,14 +9,18 @@ services:
         environment:
             - APP_MAINTENANCE
         volumes:
-            - /app/var/logs
+            - storage:/app/var/storage
         labels:
             - "traefik.enable=true"
             - "traefik.http.routers.labs-ci.rule=Host(`labs.silarhi.fr`)"
             - "traefik.http.routers.labs-ci.entrypoints=websecure"
+            - "traefik.http.routers.labs-ci.tls.certResolver=le"
         restart: always
         networks:
             - web
+
+volumes:
+    storage:
 
 networks:
     web:
