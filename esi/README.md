@@ -1,4 +1,4 @@
-## ESI
+## HTTP Cache with ESI & Varnish
 A POC of ESI (Edge Side Includes) fragments with Varnish, PHP & Docker
 
 * Demo: https://labs.silarhi.fr/esi/
