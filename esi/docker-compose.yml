@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-    app:
+    esi-php:
         image: silarhi/php-apache:7.4
         ports:
             - 8081:80
@@ -13,5 +13,7 @@ services:
         command: ["varnishd", "-F", "-f", "/etc/varnish/default.vcl", "-t" , "0"]
         ports:
             - 8080:80
+        depends_on:
+            - esi-php
         volumes:
             - ./varnish/default.vcl:/etc/varnish/default.vcl:ro

@@ -1,20 +1,19 @@
 version: '3'
 
 services:
-    app:
+    esi-php:
         image: silarhi/php-apache:7.4
-        container_name: lab_esi_app
+        container_name: labs-esi-php
         volumes:
             - ./php:/app:ro
         restart: always
         networks:
-            - internal
             - web
 
     varnish:
         image: varnish:6.3
         command: ["varnishd", "-F", "-f", "/etc/varnish/default.vcl", "-t" , "0"]
-        container_name: labvarnish_app
+        container_name: labs-esi-varnish
         volumes:
             - ./varnish/default.vcl:/etc/varnish/default.vcl:ro
         labels:
@@ -26,11 +25,8 @@ services:
             - "traefik.http.middlewares.labs-esi.stripprefix.prefixes=/esi"
         restart: always
         networks:
-            - internal
             - web
 
 networks:
-    internal:
-        driver: bridge
     web:
         external: true

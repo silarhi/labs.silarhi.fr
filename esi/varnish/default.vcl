@@ -5,7 +5,7 @@ import std;
 import directors;
 
 backend default {
-    .host = "app"; # Changez par 127.0.0.1 si vous n'utilisez pas Docker
+    .host = "esi-php"; # Changez par 127.0.0.1 si vous n'utilisez pas Docker
     .port = "80";  # Le port d'écoute de votre serveur Apache / Nginx
 }
 
