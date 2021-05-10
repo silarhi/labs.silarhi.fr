@@ -12,7 +12,7 @@ services:
 
     varnish:
         image: varnish:6.3
-        command: ["varnishd", "-F", "-f", "/etc/varnish/default.vcl", "-t" , "0"]
+        command: [ "varnishd", "-F", "-f", "/etc/varnish/default.vcl", "-t" , "0" ]
         container_name: labs-esi-varnish
         volumes:
             - ./varnish/default.vcl:/etc/varnish/default.vcl:ro

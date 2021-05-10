@@ -10,7 +10,7 @@ services:
 
     varnish:
         image: varnish:6.3
-        command: ["varnishd", "-F", "-f", "/etc/varnish/default.vcl", "-t" , "0"]
+        command: [ "varnishd", "-F", "-f", "/etc/varnish/default.vcl", "-t" , "0" ]
         ports:
             - 8080:80
         depends_on:
