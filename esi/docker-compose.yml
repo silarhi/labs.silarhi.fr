@@ -2,7 +2,7 @@ version: '3'
 
 services:
     esi-php:
-        image: silarhi/php-apache:7.4
+        image: silarhi/php-apache:8.0
         ports:
             - 8081:80
         volumes:
