@@ -59,7 +59,7 @@ header("X-Reverse-Proxy-TTL: 10");
             <a target="_blank" href="https://blog.silarhi.fr/varnish-fragment-esi-docker/">https://blog.silarhi.fr/varnish-fragment-esi-docker/</a>
         </li>
         <li>Sources :
-            <a target="_blank" href="https://github.com/silarhi/labs.silarhi.fr/tree/master/esi">https://github.com/silarhi/labs.silarhi.fr/tree/master/esi</a>
+            <a target="_blank" href="https://github.com/silarhi/labs.silarhi.fr/tree/main/esi">https://github.com/silarhi/labs.silarhi.fr/tree/main/esi</a>
         </li>
     </ul>
 </div>
