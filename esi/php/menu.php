@@ -2,7 +2,7 @@
 session_start();
 header("X-Reverse-Proxy-TTL: 60");
 ?>
-<nav class="navbar navbar-expand-lg navbar-light bg-light private cached">
+<nav class="navbar navbar-expand-lg bg-body-tertiary private cached">
     <div class="container">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto">
