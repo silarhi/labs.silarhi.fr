@@ -3,6 +3,7 @@ vcl 4.1;
 
 import std;
 import directors;
+import cookie;
 
 backend default {
     .host = "esi-php"; # Changez par 127.0.0.1 si vous n'utilisez pas Docker
@@ -22,20 +23,19 @@ sub vcl_recv {
 
     # On supprime les cookies sur les pages publiques (cf vcl_hash)
     if(! req.url ~ "^/(login|logout|menu|user)\.php") {
-        unset req.http.Cookie;
+        unset req.http.cookie;
     }
 
     # On supprime tous les autres cookies que PHPSESSID pour les pages privées
-    if (req.http.Cookie) {
-        set req.http.Cookie = regsuball(req.http.Cookie, "; +", ";");
-        set req.http.Cookie = regsuball(req.http.Cookie, ";(PHPSESSID)=", "; \1=");
-        set req.http.Cookie = regsuball(req.http.Cookie, ";[^ ][^;]*", "");
-        set req.http.Cookie = regsuball(req.http.Cookie, "^[; ]+|[; ]+$", "");
-        set req.http.Cookie = regsuball(req.http.Cookie, "^;\s*", "");
+    if (req.http.cookie) {
+        cookie.parse(req.http.cookie);
+        cookie.keep("PHPSESSID");
+        set req.http.cookie = cookie.get_string();
 
-        if (req.http.Cookie ~ "^\s*$") {
-            unset req.http.Cookie;
+        if (req.http.cookie == "") {
+            unset req.http.cookie;
         }
+
     }
 
     return (hash);

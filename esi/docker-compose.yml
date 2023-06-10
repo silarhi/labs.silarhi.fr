@@ -9,7 +9,7 @@ services:
             - ./php:/app:ro
 
     varnish:
-        image: varnish:6.3
+        image: varnish:7.3-alpine
         command: [ "varnishd", "-F", "-f", "/etc/varnish/default.vcl", "-t" , "0" ]
         ports:
             - 8080:80
