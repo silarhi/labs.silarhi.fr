@@ -14,7 +14,7 @@ services:
             - "traefik.enable=true"
             - "traefik.http.routers.labs-ci.rule=Host(`labs.silarhi.fr`)"
             - "traefik.http.routers.labs-ci.entrypoints=websecure"
-            - "traefik.http.routers.labs-ci.tls.certResolver=le"
+            - "traefik.http.routers.labs-ci.tls=true"
         restart: always
         networks:
             - web

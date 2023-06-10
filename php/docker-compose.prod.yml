@@ -2,13 +2,13 @@ version: '3'
 
 services:
     app:
-        image: silarhi/php-apache:8.0
+        image: silarhi/php-apache:8.2
         container_name: lab_php_app
         labels:
             - "traefik.enable=true"
             - "traefik.http.routers.labs-php.rule=Host(`labs.silarhi.fr`) && PathPrefix(`/php`)"
             - "traefik.http.routers.labs-php.entrypoints=websecure"
-            - "traefik.http.routers.labs-php.tls.certResolver=le"
+            - "traefik.http.routers.labs-php.tls=true"
             - "traefik.http.routers.labs-php.middlewares=labs-php"
             - "traefik.http.middlewares.labs-php.stripprefix.prefixes=/php"
         restart: always

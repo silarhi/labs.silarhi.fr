@@ -20,7 +20,7 @@ services:
             - "traefik.enable=true"
             - "traefik.http.routers.labs-esi.rule=Host(`labs.silarhi.fr`) && PathPrefix(`/esi`)"
             - "traefik.http.routers.labs-esi.entrypoints=websecure"
-            - "traefik.http.routers.labs-esi.tls.certResolver=le"
+            - "traefik.http.routers.labs-esi.tls=true"
             - "traefik.http.routers.labs-esi.middlewares=labs-esi"
             - "traefik.http.middlewares.labs-esi.stripprefix.prefixes=/esi"
         restart: always
