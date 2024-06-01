@@ -2,7 +2,7 @@ version: '3'
 
 services:
     app:
-        image: silarhi/php-apache:8.2
+        image: silarhi/php-apache:8.3
         container_name: lab_php_app
         labels:
             - "traefik.enable=true"
@@ -11,6 +11,19 @@ services:
             - "traefik.http.routers.labs-php.tls=true"
             - "traefik.http.routers.labs-php.middlewares=labs-php"
             - "traefik.http.middlewares.labs-php.stripprefix.prefixes=/php"
+        restart: always
+        networks:
+            - web
+    app_frankenphp:
+        image: silarhi/php-apache:8.3-frankenphp-bookworm
+        container_name: lab_php_app_frankenphp
+        labels:
+            - "traefik.enable=true"
+            - "traefik.http.routers.labs-frankenphp.rule=Host(`labs.silarhi.fr`) && PathPrefix(`/frankenphp`)"
+            - "traefik.http.routers.labs-frankenphp.entrypoints=websecure"
+            - "traefik.http.routers.labs-frankenphp.tls=true"
+            - "traefik.http.routers.labs-frankenphp.middlewares=labs-frankenphp"
+            - "traefik.http.middlewares.labs-frankenphp.stripprefix.prefixes=/frankenphp"
         restart: always
         networks:
             - web
