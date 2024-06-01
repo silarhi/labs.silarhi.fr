@@ -2,7 +2,7 @@
 session_start();
 header("X-Reverse-Proxy-TTL: 60");
 ?>
-<nav class="navbar navbar-expand-lg bg-body-tertiary private cached">
+<nav class="navbar navbar-expand-lg bg-body-tertiary private cached pt-4">
     <div class="container">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto">
@@ -11,14 +11,14 @@ header("X-Reverse-Proxy-TTL: 60");
                         <span class="badge bg-success">Connecté</span>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="logout.php">Déconnexion</a>
+                        <a class="btn btn-primary ms-2" href="logout.php">Déconnexion</a>
                     </li>
                 <?php else: ?>
                     <li class="navbar-text">
                         <span class="badge bg-danger">Anonyme</span>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="login.php">Connexion</a>
+                        <a class="btn btn-primary ms-2" href="login.php">Connexion</a>
                     </li>
                 <?php endif; ?>
             </ul>

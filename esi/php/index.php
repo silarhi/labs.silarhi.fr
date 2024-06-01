@@ -9,16 +9,53 @@ header("X-Reverse-Proxy-TTL: 10");
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <style>
-        .public {
-            border: 2px dashed #198754;
+        .public:before,
+        .private:before {
+            position: absolute;
+            top: -0.75rem;
+            left: 0.75rem;
+            background-color: rgb(var(--bs-tertiary-bg-rgb));
+            padding: 0.125rem;
+            border: 1px solid transparent;
+            font-size: 0.75em;
         }
 
+        .public,
         .private {
-            border: 2px dashed #dc3545;
+            position: relative;
+            border: 2px solid transparent;
+        }
+
+        .public,
+        .public:before {
+            border-color: #198754;
+        }
+
+        .private,
+        .private:before {
+            border-color: #dc3545;
         }
 
         .cached {
             border-style: solid;
+        }
+
+        .public:before {
+            content: 'Public';
+        }
+        .public.cached:before {
+            content: 'Public + caché';
+        }
+        .private:before {
+            content: 'Privé';
+        }
+        .private.cached:before {
+            content: 'Privé + caché';
+        }
+
+        .no-legend .public:before,
+        .no-legend .private:before {
+            display: none;
         }
     </style>
     <script>
@@ -39,8 +76,8 @@ header("X-Reverse-Proxy-TTL: 10");
     <title>Varnish & ESI Demo</title>
 </head>
 <body class="p-2">
-<div class="container public cached p-2">
-    <h1 class="text-center">Varnish & ESI Demo</h1>
+<div class="container public cached mt-4 p-2">
+    <h1 class="text-center">ESI with Varnish Demo</h1>
     <esi:include src="/menu.php" />
     <br />
     <esi:include src="/time.php" />
@@ -60,7 +97,7 @@ header("X-Reverse-Proxy-TTL: 10");
 </div>
 <div class="container">
     <h2 class="text-center m-3">Légende des bordures</h2>
-    <div class="row text-sm-center">
+    <div class="row text-sm-center no-legend">
         <div class="col-sm-3"><span class="d-inline-block public p-1">Public</span></div>
         <div class="col-sm-3"><span class="d-inline-block public cached p-1">Public + cache</span></div>
         <div class="col-sm-3"><span class="d-inline-block private p-1">Privé</span></div>

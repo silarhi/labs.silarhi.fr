@@ -2,7 +2,7 @@
 session_start();
 ?>
 <br />
-<div class="private p-2">
+<div class="private p-2 pt-3">
     <?php if ($_SESSION['logged'] ?? false): ?>
         Dernière connexion il y a <?= time() - $_SESSION['last_login'] ?>s
     <?php else: ?>
