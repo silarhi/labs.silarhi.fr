@@ -6,7 +6,7 @@ services:
         container_name: lab_php_app
         labels:
             - "traefik.enable=true"
-            - "traefik.http.routers.labs-php.rule=Host(`labs.silarhi.fr`) && PathPrefix(`/php`)"
+            - "traefik.http.routers.labs-php.rule=Host(`labs.silarhi.fr`) && (PathPrefix(`/php`) || PathPrefix(`/_errors`))"
             - "traefik.http.routers.labs-php.entrypoints=websecure"
             - "traefik.http.routers.labs-php.tls=true"
             - "traefik.http.routers.labs-php.middlewares=labs-php"
