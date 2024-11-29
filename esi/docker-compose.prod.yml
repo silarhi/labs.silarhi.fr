@@ -1,32 +1,31 @@
-version: '3'
-
 services:
-    esi-php:
-        image: silarhi/php-apache:8.3
-        container_name: labs-esi-php
-        volumes:
-            - ./php:/app:ro
-        restart: always
-        networks:
-            - web
+  esi-php:
+    image: silarhi/php-apache:8.3
+    container_name: labs-esi-php
+    volumes:
+      - ./php:/app:ro
+    restart: unless-stopped
+    networks:
+      - web
 
-    varnish:
-        image: varnish:7.3-alpine
-        command: [ "varnishd", "-F", "-f", "/etc/varnish/default.vcl", "-t" , "0" ]
-        container_name: labs-esi-varnish
-        volumes:
-            - ./varnish/default.vcl:/etc/varnish/default.vcl:ro
-        labels:
-            - "traefik.enable=true"
-            - "traefik.http.routers.labs-esi.rule=Host(`labs.silarhi.fr`) && PathPrefix(`/esi`)"
-            - "traefik.http.routers.labs-esi.entrypoints=websecure"
-            - "traefik.http.routers.labs-esi.tls=true"
-            - "traefik.http.routers.labs-esi.middlewares=labs-esi"
-            - "traefik.http.middlewares.labs-esi.stripprefix.prefixes=/esi"
-        restart: always
-        networks:
-            - web
+  varnish:
+    image: varnish:7.3-alpine
+    container_name: labs-esi-varnish
+    command: [ "varnishd", "-F", "-f", "/etc/varnish/default.vcl", "-t", "0" ]
+    volumes:
+      - ./varnish/default.vcl:/etc/varnish/default.vcl:ro
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.labs-esi.rule=Host(`labs.silarhi.fr`) &&
+        PathPrefix(`/esi`)"
+      - "traefik.http.routers.labs-esi.entrypoints=websecure"
+      - "traefik.http.routers.labs-esi.tls=true"
+      - "traefik.http.routers.labs-esi.middlewares=labs-esi"
+      - "traefik.http.middlewares.labs-esi.stripprefix.prefixes=/esi"
+    restart: unless-stopped
+    networks:
+      - web
 
 networks:
-    web:
-        external: true
+  web:
+    external: true

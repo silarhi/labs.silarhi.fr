@@ -1,25 +1,24 @@
 services:
-    app:
-        image: silarhi/symfony-docker-ci:latest
-        container_name: lab_ci_app
-        env_file:
-            - app.env
-        environment:
-            - APP_MAINTENANCE
-        volumes:
-            - storage:/app/var/storage
-        labels:
-            - "traefik.enable=true"
-            - "traefik.http.routers.labs-ci.rule=Host(`labs.silarhi.fr`)"
-            - "traefik.http.routers.labs-ci.entrypoints=websecure"
-            - "traefik.http.routers.labs-ci.tls=true"
-        restart: always
-        networks:
-            - web
+  app:
+    image: silarhi/symfony-docker-ci:latest
+    container_name: lab_ci_app
+    volumes:
+      - storage:/app/var/storage
+    environment:
+      - APP_MAINTENANCE
+    env_file:
+      - app.env
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.labs-ci.rule=Host(`labs.silarhi.fr`)"
+      - "traefik.http.routers.labs-ci.entrypoints=websecure"
+      - "traefik.http.routers.labs-ci.tls=true"
+    restart: unless-stopped
+    networks:
+      - web
+networks:
+  web:
+    external: true
 
 volumes:
-    storage:
-
-networks:
-    web:
-        external: true
+  storage:
