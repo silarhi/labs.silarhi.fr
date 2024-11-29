@@ -28,7 +28,3 @@ services:
     restart: unless-stopped
     networks:
       - web
-
-networks:
-  web:
-    external: true
