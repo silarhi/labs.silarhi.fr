@@ -1,7 +1,7 @@
 ## Symfony Docker CI
 [![CircleCI](https://circleci.com/gh/silarhi/symfony-docker-ci.svg?style=svg)](https://circleci.com/gh/silarhi/symfony-docker-ci)
 
-A POC of CI with Symfony, Docker & CircleCI
+A POC of CI with Symfony, Docker & CircleCI.
 
 * Demo: https://labs.silarhi.fr
 * Sources (App): https://github.com/silarhi/symfony-docker-ci
