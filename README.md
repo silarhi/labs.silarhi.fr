@@ -4,7 +4,7 @@ This repo contains all docker-compose + Traefik configuration used in production
 ## Symfony Docker CI
 [![CircleCI](https://circleci.com/gh/silarhi/symfony-docker-ci.svg?style=svg)](https://circleci.com/gh/silarhi/symfony-docker-ci)
 
-A POC of CI with Symfony, Docker & CircleCI
+A POC of CI with Symfony, Docker & CircleCI.
 
 * Demo: https://labs.silarhi.fr
 * Sources (App): https://github.com/silarhi/symfony-docker-ci
@@ -13,7 +13,7 @@ A POC of CI with Symfony, Docker & CircleCI
 * Blog post: https://blog.silarhi.fr/deploiement-continu-symfony-docker-circleci/
 
 ## HTTP Cache with ESI & Varnish
-A POC of ESI (Edge Side Includes) fragments with Varnish, PHP & Docker
+A POC of ESI (Edge Side Includes) fragments with Varnish, PHP & Docker.
 
 * Demo: https://labs.silarhi.fr/esi/
 * Sources: https://github.com/silarhi/labs.silarhi.fr/tree/main/esi
