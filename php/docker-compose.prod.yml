@@ -1,30 +1,60 @@
 services:
   app:
-    image: silarhi/php-apache:8.3
-    container_name: lab_php_app
+    image: silarhi/php-apache:8.4
+    container_name: "${APP_NAME}"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.labs-php.rule=Host(`labs.silarhi.fr`) &&
+      - "traefik.http.routers.${APP_NAME}.rule=Host(`labs.silarhi.fr`) &&
         (PathPrefix(`/php`) || PathPrefix(`/_errors`))"
-      - "traefik.http.routers.labs-php.entrypoints=websecure"
-      - "traefik.http.routers.labs-php.tls=true"
-      - "traefik.http.routers.labs-php.middlewares=labs-php"
-      - "traefik.http.middlewares.labs-php.stripprefix.prefixes=/php"
+      - "traefik.http.routers.${APP_NAME}.entrypoints=websecure"
+      - "traefik.http.routers.${APP_NAME}.tls=true"
+      - "traefik.http.routers.${APP_NAME}.middlewares=${APP_NAME}"
+      - "traefik.http.middlewares.${APP_NAME}.stripprefix.prefixes=/php"
     restart: unless-stopped
     networks:
       - web
   app_frankenphp:
-    image: silarhi/php-apache:8.3-frankenphp-bookworm
-    container_name: lab_php_app_frankenphp
+    image: silarhi/php-apache:8.4-frankenphp-bookworm
+    container_name: "${APP_NAME}_frankenphp"
+    environment:
+      - "CADDY_SERVER_EXTRA_DIRECTIVES=log"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.labs-frankenphp.rule=Host(`labs.silarhi.fr`) &&
+      - "traefik.http.routers.${APP_NAME}-frankenphp.rule=Host(`labs.silarhi.fr`) &&
         PathPrefix(`/frankenphp`)"
-      - "traefik.http.routers.labs-frankenphp.entrypoints=websecure"
-      - "traefik.http.routers.labs-frankenphp.tls=true"
-      - "traefik.http.routers.labs-frankenphp.middlewares=labs-frankenphp"
-      - "traefik.http.middlewares.labs-frankenphp.stripprefix.prefixes=/franken\
+      - "traefik.http.routers.${APP_NAME}-frankenphp.entrypoints=websecure"
+      - "traefik.http.routers.${APP_NAME}-frankenphp.tls=true"
+      - "traefik.http.routers.${APP_NAME}-frankenphp.middlewares=${APP_NAME}-frankenphp"
+      - "traefik.http.middlewares.${APP_NAME}-frankenphp.stripprefix.prefixes=/franken\
         php"
+    restart: unless-stopped
+    networks:
+      - web
+  app_debug:
+    image: mendhak/http-https-echo:latest
+    container_name: "${APP_NAME}_debug"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.${APP_NAME}-debug.rule=Host(`labs.silarhi.fr`) &&
+        PathPrefix(`/debug`)"
+      - "traefik.http.routers.${APP_NAME}-debug.entrypoints=websecure"
+      - "traefik.http.routers.${APP_NAME}-debug.tls=true"
+      - "traefik.http.routers.${APP_NAME}-debug.middlewares=${APP_NAME}-debug"
+      - "traefik.http.middlewares.${APP_NAME}-debug.stripprefix.prefixes=/debug"
+    restart: unless-stopped
+    networks:
+      - web
+  app_whoami:
+    image: traefik/whoami:latest
+    container_name: "${APP_NAME}_whoami"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.${APP_NAME}-whoami.rule=Host(`labs.silarhi.fr`) &&
+        PathPrefix(`/whoami`)"
+      - "traefik.http.routers.${APP_NAME}-whoami.entrypoints=websecure"
+      - "traefik.http.routers.${APP_NAME}-whoami.tls=true"
+      - "traefik.http.routers.${APP_NAME}-whoami.middlewares=${APP_NAME}-whoami"
+      - "traefik.http.middlewares.${APP_NAME}-whoami.stripprefix.prefixes=/whoami"
     restart: unless-stopped
     networks:
       - web
