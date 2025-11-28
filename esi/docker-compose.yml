@@ -1,6 +1,6 @@
 services:
   esi-php:
-    image: silarhi/php-apache:8.3
+    image: silarhi/php-apache:8.5
     volumes:
       - ./php:/app:ro
     ports:

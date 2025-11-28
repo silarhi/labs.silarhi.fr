@@ -1,6 +1,6 @@
 services:
   app:
-    image: silarhi/php-apache:8.3
+    image: silarhi/php-apache:8.5
     container_name: lab_php_app
     ports:
       - '8080:80'

@@ -1,6 +1,6 @@
 services:
   app:
-    image: silarhi/php-apache:8.4
+    image: silarhi/php-apache:8.5
     container_name: "${APP_NAME}"
     labels:
       - "traefik.enable=true"
@@ -14,7 +14,7 @@ services:
     networks:
       - web
   app_frankenphp:
-    image: silarhi/php-apache:8.4-frankenphp-bookworm
+    image: silarhi/php-apache:8.5-frankenphp-bookworm
     container_name: "${APP_NAME}_frankenphp"
     environment:
       - "CADDY_SERVER_EXTRA_DIRECTIVES=log"
