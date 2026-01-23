@@ -9,7 +9,7 @@ services:
       - web
 
   varnish:
-    image: varnish:7.3-alpine
+    image: varnish:7.7-alpine
     container_name: labs-esi-varnish
     command: [ "varnishd", "-F", "-f", "/etc/varnish/default.vcl", "-t", "0" ]
     volumes:
