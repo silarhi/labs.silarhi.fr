@@ -5,8 +5,6 @@ services:
     volumes:
       - ./php:/app:ro
     restart: unless-stopped
-    networks:
-      - web
 
   varnish:
     image: varnish:8.0-alpine
