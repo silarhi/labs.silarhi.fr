@@ -23,7 +23,8 @@ header("X-Reverse-Proxy-TTL: 10");
         .public,
         .private {
             position: relative;
-            border: 2px solid transparent;
+            /* Dashed until .cached: the legend told cached and uncached blocks apart by this style */
+            border: 2px dashed transparent;
         }
 
         .public,
