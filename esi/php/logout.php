@@ -11,4 +11,4 @@ if (isset($_COOKIE[SESSION_NAME])) {
     setcookie(SESSION_NAME, '', ['expires' => time() - 3600] + array_intersect_key($params, array_flip(['path', 'domain', 'secure', 'httponly', 'samesite'])));
 }
 
-header('Location: '.base_path().'/', true, 301);
+header('Location: '.base_path().'/', true, 303);

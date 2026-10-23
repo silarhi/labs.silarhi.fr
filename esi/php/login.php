@@ -7,4 +7,5 @@ session_regenerate_id(true);
 $_SESSION['logged'] = true;
 $_SESSION['last_login'] = time();
 
-header('Location: '.base_path().'/', true, 301);
+// 303, not 301: a permanent redirect could be cached by the browser, and login.php never called again
+header('Location: '.base_path().'/', true, 303);

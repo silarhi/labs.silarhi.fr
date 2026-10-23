@@ -21,8 +21,13 @@ sub vcl_recv {
         set req.hash_always_miss = true;
     }
 
+    # Connexion / déconnexion : jamais en cache, elles modifient la session
+    if (req.url ~ "^/(login|logout)\.php") {
+        return (pass);
+    }
+
     # On supprime les cookies sur les pages publiques (cf vcl_hash)
-    if(! req.url ~ "^/(login|logout|menu|user)\.php") {
+    if (req.url !~ "^/(menu|user)\.php") {
         unset req.http.cookie;
     }
 
