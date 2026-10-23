@@ -12,6 +12,9 @@ services:
     image: varnish:8.0-alpine
     container_name: labs-esi-varnish
     command: [ "varnishd", "-F", "-f", "/etc/varnish/default.vcl", "-t", "0" ]
+    # The VCL resolves its backend host when it loads: varnishd does not start before esi-php exists
+    depends_on:
+      - esi-php
     volumes:
       - ./varnish/default.vcl:/etc/varnish/default.vcl:ro
     labels:
