@@ -1,4 +1,5 @@
 <?php //menu.php
+require __DIR__.'/lib.php';
 session_start();
 header("X-Reverse-Proxy-TTL: 60");
 ?>
@@ -11,14 +12,14 @@ header("X-Reverse-Proxy-TTL: 60");
                         <span class="badge bg-success">Connecté</span>
                     </li>
                     <li class="nav-item">
-                        <a class="btn btn-primary ms-2" href="logout.php">Déconnexion</a>
+                        <a class="btn btn-primary ms-2" href="<?= base_path() ?>/logout.php">Déconnexion</a>
                     </li>
                 <?php else: ?>
                     <li class="navbar-text">
                         <span class="badge bg-danger">Anonyme</span>
                     </li>
                     <li class="nav-item">
-                        <a class="btn btn-primary ms-2" href="login.php">Connexion</a>
+                        <a class="btn btn-primary ms-2" href="<?= base_path() ?>/login.php">Connexion</a>
                     </li>
                 <?php endif; ?>
             </ul>

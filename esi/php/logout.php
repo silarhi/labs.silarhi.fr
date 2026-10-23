@@ -1,4 +1,5 @@
 <?php // logout.php
+require __DIR__.'/lib.php';
 
 if (isset($_COOKIE[session_name()])) {
     setcookie(session_name(), "deleted", time() - 3600, "/");
@@ -7,4 +8,4 @@ if (isset($_COOKIE[session_name()])) {
 session_start();
 session_destroy();
 
-header('Location: ./', true, 301);
+header('Location: '.base_path().'/', true, 301);
