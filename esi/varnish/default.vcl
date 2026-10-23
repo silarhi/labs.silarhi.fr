@@ -2,7 +2,6 @@
 vcl 4.1;
 
 import std;
-import directors;
 import cookie;
 
 backend default {
