@@ -118,6 +118,11 @@ natcasesort($extensions);
         Sources: <a href="https://github.com/silarhi/docker-php">silarhi/docker-php</a>
         · Images: <a href="https://hub.docker.com/r/silarhi/php-apache">Docker Hub</a>
         · <a href="https://blog.silarhi.fr/image-docker-php-apache-parfaite/">Blog post</a>
+        · <?php if ($isFrankenPhp) { ?>
+            Need a traditional setup? See <a href="/php">/php</a>
+        <?php } else { ?>
+            Need a performance boost? See <a href="/frankenphp">/frankenphp</a>
+        <?php } ?>
     </footer>
 </main>
 </body>
