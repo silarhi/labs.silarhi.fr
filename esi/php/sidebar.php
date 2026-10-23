@@ -1,9 +1,7 @@
-<?php //sidebar.php
-header("X-Reverse-Proxy-TTL: 20");
-?>
-<div class="public cached p-2 pt-3">
-    <h1>Widgets publics</h1>
-    <p class="lead">
-        Mise en cache le <span class="badge bg-secondary"><?= date('d/m/Y H:i:s') ?></span> (20s)
-    </p>
-</div>
+<?php // sidebar.php
+require __DIR__.'/lib.php';
+
+fragment('/sidebar.php', 'public', cache_for(20), static function (): void { ?>
+    <h3 class="mb-1">Widgets publics</h3>
+    <p class="text-secondary mb-0">Le même pour tout le monde, régénéré toutes les 20 secondes.</p>
+<?php });

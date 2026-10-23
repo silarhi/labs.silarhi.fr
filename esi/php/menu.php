@@ -1,31 +1,21 @@
-<?php //menu.php
+<?php // menu.php
 require __DIR__.'/lib.php';
+
+// Private, cached per session: vcl_hash adds the session cookie to the key
 $session = session_read();
-header("X-Reverse-Proxy-TTL: 60");
-?>
-<nav class="navbar navbar-expand-lg bg-body-tertiary private cached pt-4">
-    <div class="container">
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto">
-                <?php if ($session['logged'] ?? false): ?>
-                    <li class="navbar-text">
-                        <span class="badge bg-success">Connecté</span>
-                    </li>
-                    <li class="nav-item">
-                        <a class="btn btn-primary ms-2" href="<?= base_path() ?>/logout.php">Déconnexion</a>
-                    </li>
-                <?php else: ?>
-                    <li class="navbar-text">
-                        <span class="badge bg-danger">Anonyme</span>
-                    </li>
-                    <li class="nav-item">
-                        <a class="btn btn-primary ms-2" href="<?= base_path() ?>/login.php">Connexion</a>
-                    </li>
-                <?php endif; ?>
-            </ul>
-            <span class="navbar-text">
-	     		Mise en cache le <span class="badge bg-secondary"><?= date('d/m/Y H:i:s') ?></span> (60s)
-		    </span>
-        </div>
+$logged = $session['logged'] ?? false;
+
+fragment('/menu.php', 'private', cache_for(60), static function () use ($logged): void { ?>
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
+        <span class="d-inline-flex align-items-center gap-2">
+            <span class="status-dot-square bg-<?= $logged ? 'success' : 'secondary' ?>"></span>
+            <strong><?= $logged ? 'Connecté' : 'Anonyme' ?></strong>
+            <span class="text-secondary"><?= $logged ? 'ce menu est mis en cache pour votre session seulement' : 'ce menu est partagé par tous les visiteurs anonymes' ?></span>
+        </span>
+        <?php if ($logged) { ?>
+            <a class="btn btn-sm" href="<?= h(base_path()) ?>/logout.php">Déconnexion</a>
+        <?php } else { ?>
+            <a class="btn btn-sm btn-primary" href="<?= h(base_path()) ?>/login.php">Connexion</a>
+        <?php } ?>
     </div>
-</nav>
+<?php });
