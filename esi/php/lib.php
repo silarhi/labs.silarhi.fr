@@ -26,3 +26,18 @@ function session_open(): void
     ]);
     session_start();
 }
+
+// Read only, and only when the visitor already has a session: an anonymous visitor gets no session (nor
+// Set-Cookie) from the fragments, whose responses Varnish caches
+function session_read(): array
+{
+    if (!isset($_COOKIE[SESSION_NAME])) {
+        return [];
+    }
+
+    session_open();
+    $session = $_SESSION;
+    session_write_close();
+
+    return $session;
+}

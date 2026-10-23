@@ -1,13 +1,13 @@
 <?php //menu.php
 require __DIR__.'/lib.php';
-session_open();
+$session = session_read();
 header("X-Reverse-Proxy-TTL: 60");
 ?>
 <nav class="navbar navbar-expand-lg bg-body-tertiary private cached pt-4">
     <div class="container">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto">
-                <?php if ($_SESSION['logged'] ?? false): ?>
+                <?php if ($session['logged'] ?? false): ?>
                     <li class="navbar-text">
                         <span class="badge bg-success">Connecté</span>
                     </li>
