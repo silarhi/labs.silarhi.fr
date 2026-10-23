@@ -1,6 +1,6 @@
 <?php //menu.php
 require __DIR__.'/lib.php';
-session_start();
+session_open();
 header("X-Reverse-Proxy-TTL: 60");
 ?>
 <nav class="navbar navbar-expand-lg bg-body-tertiary private cached pt-4">

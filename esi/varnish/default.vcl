@@ -26,10 +26,10 @@ sub vcl_recv {
         unset req.http.cookie;
     }
 
-    # On supprime tous les autres cookies que PHPSESSID pour les pages privées
+    # On supprime tous les autres cookies que ESISESSID (la session de la démo) pour les pages privées
     if (req.http.cookie) {
         cookie.parse(req.http.cookie);
-        cookie.keep("PHPSESSID");
+        cookie.keep("ESISESSID");
         set req.http.cookie = cookie.get_string();
 
         if (req.http.cookie == "") {

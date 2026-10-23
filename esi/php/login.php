@@ -1,7 +1,7 @@
 <?php // login.php
 require __DIR__.'/lib.php';
 
-session_start();
+session_open();
 $_SESSION['logged'] = true;
 $_SESSION['last_login'] = time();
 

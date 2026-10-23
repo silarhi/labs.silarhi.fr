@@ -1,5 +1,6 @@
 <?php //user.php
-session_start();
+require __DIR__.'/lib.php';
+session_open();
 ?>
 <br />
 <div class="private p-2 pt-3">
