@@ -2,6 +2,8 @@ services:
   app:
     image: silarhi/php-apache:8.5
     container_name: "${APP_NAME}"
+    volumes:
+      - ./app:/app:ro
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.${APP_NAME}.rule=Host(`labs.silarhi.fr`) &&
@@ -16,6 +18,8 @@ services:
   app_frankenphp:
     image: silarhi/php-apache:8.5-frankenphp-bookworm
     container_name: "${APP_NAME}_frankenphp"
+    volumes:
+      - ./app:/app/public:ro
     environment:
       - "CADDY_SERVER_EXTRA_DIRECTIVES=log"
     labels:

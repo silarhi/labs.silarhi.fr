@@ -2,5 +2,14 @@ services:
   app:
     image: silarhi/php-apache:8.5
     container_name: lab_php_app
+    volumes:
+      - ./app:/app:ro
     ports:
       - '8080:80'
+  app_frankenphp:
+    image: silarhi/php-apache:8.5-frankenphp-bookworm
+    container_name: lab_php_app_frankenphp
+    volumes:
+      - ./app:/app/public:ro
+    ports:
+      - '8081:80'
