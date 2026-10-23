@@ -5,6 +5,8 @@ services:
     volumes:
       - ./php:/app:ro
     restart: unless-stopped
+    networks:
+      - default
 
   varnish:
     image: varnish:8.0-alpine
@@ -20,8 +22,17 @@ services:
       - "traefik.http.routers.labs-esi.tls=true"
       - "traefik.http.routers.labs-esi.middlewares=labs-esi"
       - "traefik.http.middlewares.labs-esi.stripprefix.prefixes=/esi"
+    # Check the varnish management process itself (not the backend) — varnishadm
+    # ping returns PONG over the local admin socket.
+    healthcheck:
+      test: ["CMD", "varnishadm", "ping"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
     restart: unless-stopped
     networks:
+      - default
       - web
 
 networks:

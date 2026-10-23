@@ -17,7 +17,7 @@ services:
       - web
   app_frankenphp:
     image: silarhi/php-apache:8.5-frankenphp-bookworm
-    container_name: "${APP_NAME}_frankenphp"
+    container_name: "${APP_NAME}-frankenphp"
     volumes:
       - ./app:/app/public:ro
     environment:
@@ -34,35 +34,6 @@ services:
     restart: unless-stopped
     networks:
       - web
-  app_debug:
-    image: mendhak/http-https-echo:latest
-    container_name: "${APP_NAME}_debug"
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.${APP_NAME}-debug.rule=Host(`labs.silarhi.fr`) &&
-        PathPrefix(`/debug`)"
-      - "traefik.http.routers.${APP_NAME}-debug.entrypoints=websecure"
-      - "traefik.http.routers.${APP_NAME}-debug.tls=true"
-      - "traefik.http.routers.${APP_NAME}-debug.middlewares=${APP_NAME}-debug"
-      - "traefik.http.middlewares.${APP_NAME}-debug.stripprefix.prefixes=/debug"
-    restart: unless-stopped
-    networks:
-      - web
-  app_whoami:
-    image: traefik/whoami:latest
-    container_name: "${APP_NAME}_whoami"
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.${APP_NAME}-whoami.rule=Host(`labs.silarhi.fr`) &&
-        PathPrefix(`/whoami`)"
-      - "traefik.http.routers.${APP_NAME}-whoami.entrypoints=websecure"
-      - "traefik.http.routers.${APP_NAME}-whoami.tls=true"
-      - "traefik.http.routers.${APP_NAME}-whoami.middlewares=${APP_NAME}-whoami"
-      - "traefik.http.middlewares.${APP_NAME}-whoami.stripprefix.prefixes=/whoami"
-    restart: unless-stopped
-    networks:
-      - web
-
 networks:
   web:
     external: true

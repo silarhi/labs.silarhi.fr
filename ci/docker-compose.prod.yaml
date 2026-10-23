@@ -1,9 +1,11 @@
 services:
   app:
     image: silarhi/symfony-docker-ci:latest
-    container_name: lab_ci_app
+    container_name: lab-ci-app
     volumes:
       - storage:/app/var/storage
+      # Symfony 8 share dir (APP_SHARE_DIR in app.env): cache.app pools, kept across deploys/rollouts.
+      - share:/app/var/share
     environment:
       - APP_MAINTENANCE
     env_file:
@@ -13,12 +15,16 @@ services:
       - "traefik.http.routers.labs-ci.rule=Host(`labs.silarhi.fr`)"
       - "traefik.http.routers.labs-ci.entrypoints=websecure"
       - "traefik.http.routers.labs-ci.tls=true"
+      # Probed from outside by the host Alloy (blackbox), see grafana.silarhi.fr
+      - "monitoring.blackbox.url=https://labs.silarhi.fr/"
+      - "monitoring.blackbox.severity=warning"
     restart: unless-stopped
     networks:
       - web
 
 volumes:
   storage:
+  share:
 networks:
   web:
     external: true
