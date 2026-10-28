@@ -1,6 +1,6 @@
 services:
   app:
-    image: silarhi/php-apache:8.5
+    image: silarhi/php-apache:8.6
     container_name: "${APP_NAME}"
     volumes:
       - ./app:/app:ro
