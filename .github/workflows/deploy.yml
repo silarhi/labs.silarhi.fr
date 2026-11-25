@@ -1,0 +1,102 @@
+name: 'Deploy'
+
+# Every push to main SSHs into the labs server, pulls this repository in $APP_PATH, then runs the deploy.sh of each
+# demo folder (ci, esi, php) the push changed. A change to this workflow deploys every demo. Run it by hand from the
+# Actions tab to redeploy one demo or all of them, e.g. to pick up a rebuilt silarhi/php-apache image.
+#
+# Required GitHub secrets (Settings → Secrets and variables → Actions):
+#   HOST      — server hostname or IP
+#   USERNAME  — SSH user that can run docker compose
+#   KEY       — SSH private key (PEM). Its public key must be in ~/.ssh/authorized_keys on the server.
+#   APP_PATH  — absolute path of the clone on the server, e.g. /apps/labs.silarhi.fr
+
+on:
+    push:
+        branches: ['main']
+        paths:
+            - 'ci/**'
+            - 'esi/**'
+            - 'php/**'
+            - '.github/workflows/deploy.yml'
+    workflow_dispatch:
+        inputs:
+            demo:
+                description: 'Demo to redeploy'
+                type: choice
+                options: ['all', 'ci', 'esi', 'php']
+                default: 'all'
+
+# Never run two deploys at once; a newer deploy waits for the running one.
+concurrency:
+    group: deploy-production
+    cancel-in-progress: false
+
+permissions:
+    contents: read
+
+jobs:
+    changes:
+        name: Find the demos to deploy
+        runs-on: ${{ fromJSON(vars.RUNS_ON || '["ubuntu-latest"]') }}
+        timeout-minutes: 5
+        outputs:
+            demos: ${{ steps.demos.outputs.demos }}
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v7
+              with:
+                  fetch-depth: 0
+
+            - name: List the changed demos
+              id: demos
+              env:
+                  EVENT_NAME: ${{ github.event_name }}
+                  DEMO: ${{ inputs.demo }}
+                  BEFORE: ${{ github.event.before }}
+                  AFTER: ${{ github.sha }}
+              run: |
+                  ALL="ci esi php"
+                  if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+                      if [ "$DEMO" = "all" ]; then DEMOS="$ALL"; else DEMOS="$DEMO"; fi
+                  elif ! git cat-file -e "$BEFORE^{commit}" 2>/dev/null \
+                      || ! git diff --quiet "$BEFORE" "$AFTER" -- .github/workflows/deploy.yml; then
+                      DEMOS="$ALL"
+                  else
+                      DEMOS=""
+                      for demo in $ALL; do
+                          git diff --quiet "$BEFORE" "$AFTER" -- "$demo/" || DEMOS="$DEMOS $demo"
+                      done
+                  fi
+                  DEMOS=$(echo $DEMOS)
+                  echo "Demos to deploy: ${DEMOS:-none}"
+                  echo "demos=$DEMOS" >> "$GITHUB_OUTPUT"
+
+    deploy:
+        name: Deploy ${{ needs.changes.outputs.demos }}
+        needs: changes
+        if: needs.changes.outputs.demos != ''
+        runs-on: ${{ fromJSON(vars.RUNS_ON || '["ubuntu-latest"]') }}
+        timeout-minutes: 20
+        environment:
+            name: production
+            url: https://labs.silarhi.fr
+        steps:
+            - name: Run deploy.sh on production
+              uses: appleboy/ssh-action@v1
+              env:
+                  APP_PATH: ${{ secrets.APP_PATH }}
+                  DEMOS: ${{ needs.changes.outputs.demos }}
+              with:
+                  host: ${{ secrets.HOST }}
+                  username: ${{ secrets.USERNAME }}
+                  key: ${{ secrets.KEY }}
+                  envs: APP_PATH,DEMOS
+                  script: |
+                      set -e
+                      cd "$APP_PATH"
+                      git pull --ff-only
+                      for demo in $DEMOS; do
+                          echo "::group::Deploy $demo"
+                          (cd "$APP_PATH/$demo" && /bin/bash ./deploy.sh)
+                          echo "::endgroup::"
+                      done

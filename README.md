@@ -1,6 +1,9 @@
 # SILARHI labs
 This repo contains the Docker Compose files used to run the labs.silarhi.fr demos in production (services are routed by Traefik through container labels; Traefik itself is configured outside this repo) and hosts code described in blog posts.
 
+Every push to `main` deploys the demos it changes (`.github/workflows/deploy.yml`): the workflow SSHs into the server, pulls
+this repository and runs the `deploy.sh` of each changed folder. It can also be run by hand from the Actions tab.
+
 ## Symfony Docker CI
 [![CircleCI](https://circleci.com/gh/silarhi/symfony-docker-ci.svg?style=svg)](https://circleci.com/gh/silarhi/symfony-docker-ci)
 
